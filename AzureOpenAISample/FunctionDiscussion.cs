@@ -18,18 +18,36 @@ public class FunctionDiscussion
         _logger = loggerFactory.CreateLogger<FunctionDiscussion>();
     }
 
-    [Function("Function1")]
-    public async Task<HttpResponseData> Function1([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req)
+    [Function(nameof(Response)]
+    public async Task<HttpResponseData> Response([HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestData req)
     {
-        _logger.LogInformation($"{nameof(Function1)} called successfully!");
+        _logger.LogInformation($"Method {nameof(Response)} called successfully!");
 
-        var result = await _discussionService.ResponseAsync("What is HTML?");
-
+        var content = await new StreamReader(req.Body).ReadToEndAsync();
+        var result = await _discussionService.GetResponseAsync(content);
         var response = req.CreateResponse(HttpStatusCode.OK);
         response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
-
         response.WriteString(result);
+
+        _logger.LogInformation($"Method {nameof(Response)} done processing successfully!");
 
         return response;
     }
+
+    //[Function(nameof(Discussion)]
+    //public async Task<HttpResponseData> Discussion([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
+    //{
+    //    _logger.LogInformation($"Method {nameof(Discussion)} called successfully!");
+
+    //    var content = await new StreamReader(req.Body).ReadToEndAsync();
+    //    var result = await _discussionService.GetResponseAsync(content);
+    //    var response = req.CreateResponse(HttpStatusCode.OK);
+    //    response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
+    //    response.WriteString(result);
+
+    //    _logger.LogInformation($"Method {nameof(Discussion)} done processing successfully!");
+
+
+    //    return response;
+    //}
 }

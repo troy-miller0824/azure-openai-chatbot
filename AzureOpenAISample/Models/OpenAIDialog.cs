@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace AzureOpenAISample.Models;
 
-public enum DiscussionParticipant { Human, Marv };
+public enum DiscussionParticipant { You, Marv };
 public class OpenAIDialog
 {
     public DiscussionParticipant Participant { get; set; }
     public string? Text { get; set; }
-
+    public DateTime Timestamp { get; set; }
 }
 
 public class OpenAIDialogs : List<OpenAIDialog>
@@ -25,13 +25,13 @@ public class OpenAIDialogs : List<OpenAIDialog>
     }
     public void Add(DiscussionParticipant participant, string text)
     {
-        this.Add(new OpenAIDialog { Participant = participant, Text = text });
+        this.Add(new OpenAIDialog { Participant = participant, Text = text, Timestamp = DateTime.UtcNow });
     }
 
     //TODO: Should be in different assembly and inaccessible 
     internal string ToString(string chars = $"\n\n")
     {
-        var conversation = string.Join(chars, this.Select(x => $"{x.Participant.ToString()}: {x.Text}"));
+        var conversation = string.Join(chars, this.Select(x => $"{x.Text}"));//{x.Participant.ToString()}: 
 
         return $"{_tone}{chars}{conversation}";
     }

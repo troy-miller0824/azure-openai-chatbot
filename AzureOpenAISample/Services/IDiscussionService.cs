@@ -2,5 +2,5 @@
 
 public interface IDiscussionService
 {
-    Task<string> ResponseAsync(string question);
+    Task<string> GetResponseAsync(string question);
 }

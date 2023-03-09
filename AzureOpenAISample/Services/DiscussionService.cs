@@ -1,4 +1,5 @@
-﻿using AzureOpenAISample.Implementations;
+﻿using Azure;
+using AzureOpenAISample.Implementations;
 using AzureOpenAISample.Models;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.Extensions.Logging;
@@ -26,14 +27,18 @@ public class DiscussionService : IDiscussionService
         OpenAIDialogs = new OpenAIDialogs(SetTone);
     }
 
-    public async Task<string> ResponseAsync(string question)
+    public async Task<string> GetResponseAsync(string question)
     {
-        OpenAIDialogs.Add(DiscussionParticipant.Human, question);
+        _logger.LogInformation($"Method {nameof(GetResponseAsync)} called successfully!");
+
+        OpenAIDialogs.Add(DiscussionParticipant.You, question);
 
         var response = await _openAIService.GetResponseAsync(OpenAIDialogs.ToString());
-
         var text = response.Choices!.First().Text!;
+
         OpenAIDialogs.Add(DiscussionParticipant.Marv, text);
+
+        _logger.LogInformation($"Method {nameof(GetResponseAsync)} completed successfully!");
 
         return text;
     }
