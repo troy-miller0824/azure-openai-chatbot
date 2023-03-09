@@ -18,7 +18,7 @@ public class FunctionDiscussion
         _logger = loggerFactory.CreateLogger<FunctionDiscussion>();
     }
 
-    [Function(nameof(Response)]
+    [Function(nameof(Response))]
     public async Task<HttpResponseData> Response([HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestData req)
     {
         _logger.LogInformation($"Method {nameof(Response)} called successfully!");

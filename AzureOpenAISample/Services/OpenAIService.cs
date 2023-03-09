@@ -44,10 +44,11 @@ public class OpenAIService : IOpenAIService
             _logger.LogCritical(ex, ex.Message);
             throw ex;
         }
+
+
         if (data.Choices == null || !data.Choices.Any())
         {
             var ex = new Exception($"No {nameof(data.Choices)} returned.");
-
             _logger.LogCritical(ex, ex.Message);
             throw ex;
         }
@@ -57,7 +58,6 @@ public class OpenAIService : IOpenAIService
     private HttpRequestMessage BuildHttpRequestMessage(string prompt)
     {
         var request = new HttpRequestMessage(HttpMethod.Post, $"completions?api-version=2022-12-01");
-
         var openAIRequest = new OpenAIRequest
         {
             Prompt = prompt
