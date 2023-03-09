@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "AzureOpenAISample": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7066",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
