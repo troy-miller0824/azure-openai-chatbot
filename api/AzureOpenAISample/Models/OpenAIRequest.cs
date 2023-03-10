@@ -54,7 +54,7 @@ public class OpenAIRequest
     /// message history, and user query) and the model's response. One token is roughly 4 characters for typical English text.
     /// </summary>
     [JsonPropertyName("max_tokens")]
-    public int MaxTokens { get; set; } = 60;
+    public int MaxTokens { get; set; } = 100;
 
     /// <summary>
     /// Make responses stop at a desired point, such as the end of a sentence or list. 
