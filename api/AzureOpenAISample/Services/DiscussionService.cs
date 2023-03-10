@@ -1,16 +1,7 @@
-﻿using Azure;
-using AzureOpenAISample.Implementations;
+﻿using AzureOpenAISample.Implementations;
 using AzureOpenAISample.Models;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AzureOpenAISample.Services;
 
@@ -57,8 +48,8 @@ public class DiscussionService : IDiscussionService
         _logger.LogInformation($"Marv was asked for discussion '{discussionId}' and question '{question}': {botText}!");
 
         return OpenAIDialogs
-            .Where( x=> x.DiscussionId == discussionId)
-            .OrderByDescending( x=> x.Timestamp)
+            .Where(x => x.DiscussionId == discussionId)
+            .OrderByDescending(x => x.Timestamp)
             .First();
     }
 

@@ -1,13 +1,4 @@
-﻿using Google.Protobuf.WellKnownTypes;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AzureOpenAISample.Models;
+﻿namespace AzureOpenAISample.Models;
 
 public enum DiscussionParticipant { Human, Marv };
 public class MarvDialog
@@ -53,7 +44,7 @@ public class MarvDialogs : List<MarvDialog>
     {
         //Concat the text for Marv with the format:
         // MarvTone \n\n Human:... \n Marv:... \n Human:...
-        var conversation = string.Join('\n', this.Select(x => $"{x.Participant.ToString()}: {x.BotText!.Trim()}"));//{x.Participant.ToString()}: 
+        var conversation = string.Join('\n', this.Select(x => $"{x.Participant}: {x.BotText!.Trim()}"));//{x.Participant.ToString()}: 
 
         return $"{_tone}\n\n{conversation}";
     }
