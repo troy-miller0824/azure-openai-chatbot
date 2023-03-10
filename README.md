@@ -14,4 +14,4 @@ It's not my favorite thing to do, but here I am...
 You can try your luck at marv.georgekosmidis.net but Marv is usually down (its up only during my presentations).
 
 Here is a glimpse of what he is like:
-![Marv, the reluctant and sarcastic bot.](https://raw.githubusercontent.com/georgekosmidis/Marv-with-Azure-OpenAI/main/assets/marv.gif)
+![Marv, the reluctant and sarcastic bot.](https://raw.githubusercontent.com/georgekosmidis/Marv-with-Azure-OpenAI/main/assets/discussion.gif)
