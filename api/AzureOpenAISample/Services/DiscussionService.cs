@@ -31,7 +31,7 @@ public class DiscussionService : IDiscussionService
 
     public async Task<OpenAIDialog> GetResponseAsync(Guid discussionId, string question)
     {
-        _logger.LogInformation($"Method {nameof(GetResponseAsync)} called successfully!");
+        _logger.LogInformation($"Discussion {discussionId}, Question: {question}!");
 
         OpenAIDialogs.Add(discussionId, DiscussionParticipant.Human, question, DateTime.Now);
 
@@ -44,7 +44,7 @@ public class DiscussionService : IDiscussionService
 
         OpenAIDialogs.Add(discussionId, DiscussionParticipant.Marv, choice.Text!.Trim(), DateTime.Now);
 
-        _logger.LogInformation($"Method {nameof(GetResponseAsync)} completed successfully!");
+        _logger.LogInformation($"Discussion {discussionId}, Answer: {choice.Text!.Trim()}!");
 
         return OpenAIDialogs
             .Where( x=> x.DiscussionId == discussionId)

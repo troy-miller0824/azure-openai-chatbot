@@ -1,0 +1,63 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "accounts_Azure_OpenAI_Sample_name": {
+            "defaultValue": "Azure-OpenAI-Sample",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.CognitiveServices/accounts",
+            "apiVersion": "2022-12-01",
+            "name": "[parameters('accounts_Azure_OpenAI_Sample_name')]",
+            "location": "westeurope",
+            "sku": {
+                "name": "S0"
+            },
+            "kind": "OpenAI",
+            "properties": {
+                "customSubDomainName": "azure-openai-sample",
+                "publicNetworkAccess": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.CognitiveServices/accounts/deployments",
+            "apiVersion": "2022-12-01",
+            "name": "[concat(parameters('accounts_Azure_OpenAI_Sample_name'), '/george-with-no-coffee')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.CognitiveServices/accounts', parameters('accounts_Azure_OpenAI_Sample_name'))]"
+            ],
+            "properties": {
+                "model": {
+                    "format": "OpenAI",
+                    "name": "text-davinci-003",
+                    "version": "1"
+                },
+                "scaleSettings": {
+                    "scaleType": "Standard"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.CognitiveServices/accounts/deployments",
+            "apiVersion": "2022-12-01",
+            "name": "[concat(parameters('accounts_Azure_OpenAI_Sample_name'), '/testmodel')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.CognitiveServices/accounts', parameters('accounts_Azure_OpenAI_Sample_name'))]"
+            ],
+            "properties": {
+                "model": {
+                    "format": "OpenAI",
+                    "name": "text-davinci-002",
+                    "version": "1"
+                },
+                "scaleSettings": {
+                    "scaleType": "Standard"
+                }
+            }
+        }
+    ]
+}
