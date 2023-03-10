@@ -70,13 +70,18 @@ public static class ConfigurationBuilderExtensions
                           throw new Exception($"The {OpenAISettingNames.OpenAIBaseUrl} setting is empty or not a URL!");
                       }
 
-                      var deploymentName = config.GetValue<string>(OpenAISettingNames.OpenAIDeploymentName);
-                      if (string.IsNullOrWhiteSpace(deploymentName))
+                      var marvModelName = config.GetValue<string>(OpenAISettingNames.MarvModelName);
+                      if (string.IsNullOrWhiteSpace(marvModelName))
                       {
-                          throw new Exception($"The {OpenAISettingNames.OpenAIDeploymentName} setting is empty!");
+                          throw new Exception($"The {OpenAISettingNames.MarvModelName} setting is empty!");
                       }
-                      var relativeUri = $"/openai/deployments/{deploymentName.Trim('/')}/";
 
+                      var dirkModelName = config.GetValue<string>(OpenAISettingNames.DirkModelName);
+                      if (string.IsNullOrWhiteSpace(dirkModelName))
+                      {
+                          throw new Exception($"The {OpenAISettingNames.DirkModelName} setting is empty!");
+                      }
+                      var relativeUri = $"/openai/deployments/";
                       client.BaseAddress = new Uri(baseUri, relativeUri);
 
                       //Set Default Headers

@@ -12,19 +12,16 @@ public class OpenAIService : IOpenAIService
 {
     private readonly HttpClient _httpClient;
     private readonly ILogger<OpenAIService> _logger;
-    private readonly IConfiguration _configuration;
-
 
     public OpenAIService(IConfiguration configuration, ILoggerFactory loggerFactory, HttpClient httpClient)
     {
         _logger = loggerFactory.CreateLogger<OpenAIService>();
-        _configuration = configuration;
         _httpClient = httpClient;
     }
 
-    public async Task<OpenAIResponse> GetResponseAsync(string prompt)
+    public async Task<OpenAIResponse> GetResponseAsync(string prompt, string modelName)
     {
-        var request = BuildHttpRequestMessage(prompt);
+        var request = BuildHttpRequestMessage(prompt, modelName);
         var response = await _httpClient.SendAsync(request);
 
         try
@@ -45,7 +42,6 @@ public class OpenAIService : IOpenAIService
             throw ex;
         }
 
-
         if (data.Choices == null || !data.Choices.Any())
         {
             var ex = new Exception($"No {nameof(data.Choices)} returned.");
@@ -55,9 +51,9 @@ public class OpenAIService : IOpenAIService
         return data;
     }
 
-    private HttpRequestMessage BuildHttpRequestMessage(string prompt)
+    private HttpRequestMessage BuildHttpRequestMessage(string prompt, string modelName)
     {
-        var request = new HttpRequestMessage(HttpMethod.Post, $"completions?api-version=2022-12-01");
+        var request = new HttpRequestMessage(HttpMethod.Post, $"{modelName}/completions?api-version=2022-12-01");
         var openAIRequest = new OpenAIRequest
         {
             Prompt = prompt

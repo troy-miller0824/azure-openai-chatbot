@@ -4,6 +4,6 @@ namespace AzureOpenAISample.Services;
 
 public interface IDiscussionService
 {
-    Task<OpenAIDialog> GetResponseAsync(Guid discussionId, string question);
-    OpenAIDialogs GetHistory(Guid discussionId);
+    Task<MarvDialog> GetResponseAsync(Guid discussionId, string question);
+    MarvDialogs GetHistory(Guid discussionId);
 }

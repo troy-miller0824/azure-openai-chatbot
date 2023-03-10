@@ -4,5 +4,5 @@ namespace AzureOpenAISample.Implementations;
 
 public interface IOpenAIService
 {
-    Task<OpenAIResponse> GetResponseAsync(string prompt);
+    Task<OpenAIResponse> GetResponseAsync(string prompt, string modelName);
 }

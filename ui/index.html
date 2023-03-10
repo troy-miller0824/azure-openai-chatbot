@@ -205,7 +205,7 @@
     const PERSON_IMG = "/you.png";
     const BOT_NAME = "Marv";
     const PERSON_NAME = "You";
-    const MARV_BASEURL = "https://marv.azurewebsites.net/api/";
+    const MARV_BASEURL = "http://localhost:7066/api/";
 
     window.addEventListener('load', function () {
       var discussionId = uuidv4();
@@ -268,7 +268,7 @@
             }
           }).then(async (response) => {
             var marvResponse = await response.json();
-            appendMessage(BOT_NAME, BOT_IMG, "left", marvResponse.Text);
+            appendMessage(BOT_NAME, BOT_IMG, "left", marvResponse.BotText);
           }).catch(error => {
             appendMessage(BOT_NAME, BOT_IMG, "left", "Marv is down :(");
             appendMessage(BOT_NAME, BOT_IMG, "left", error);
