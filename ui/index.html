@@ -1,8 +1,8 @@
-<html>
-
-<head>
+<!doctype html>
+<html lang="en">
   <meta charset="UTF-8">
   <title>Marv, the reluctant and sarcastic bot.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta property="og:image" content="https://raw.githubusercontent.com/georgekosmidis/Marv-with-Azure-OpenAI/main/assets/discussion.png">
   <meta property="og:title" content="Marv, the reluctant and sarcastic bot.">
   <meta property="og:url" content="https://github.com/georgekosmidis/Marv-with-Azure-OpenAI">
@@ -14,6 +14,15 @@
     src="https://unpkg.com/github-corners/dist/embed.min.js"></script>
 
   <style>
+    @media (max-width: 768px ) { 
+      .github-corner{
+        display:none;
+      }
+      .msger{
+        margin-top: 0px!important;
+      }
+     }
+
     :root {
       --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       --msger-bg: #fff;
@@ -197,6 +206,10 @@
     .msger-loading {
       display: none;
     }
+    .msger-header-discussionid{
+      text-align: right;
+      font-size: x-small;
+    }
   </style>
 
   <script>
@@ -304,36 +317,36 @@
 </head>
 
 <body>
-
+  
   <section class="msger">
     <header class="msger-header">
       <div class="msger-header-title">
         <strong>Marv</strong>, the reluctant and sarcastic bot.
       </div>
-      <div class="msger-header-options">
-        <span><small><a href="https://github.com/georgekosmidis/Marv-with-Azure-OpenAI" target="_blank" class="msger-history">Source Code</a></small></span>
-      </div>
+
     </header>
 
     <main class="msger-chat">
 
     </main>
-
+    <div class="msger-header-discussionid">
+      Discussion Id: <a href="https://github.com/georgekosmidis/Marv-with-Azure-OpenAI" target="_blank" class="msger-history">Source Code</a>
+    </div>
     <form class="msger-inputarea">
       <input type="text" class="msger-input" placeholder="Enter your message...">
       <img src="/loading.gif" height="40" class="msger-loading" />
       <button type="submit" class="msger-send-btn">Send</button>
     </form>
+
   </section>
 
   <footer style="display: block; text-align: center; font-size: small; padding-bottom: 1pc;">
     A .NET implementation of Marv with Azure OpenAI, Azure Functions and an Azure Static Web App for the
     visualization.<br />
-    <strong>Marv is usually down</strong>, it is used only during presentations - reach me out at <a
-      href="https://georgekosmidis.net" target="_blank">https://georgekosmidis.net</a> if you want to experience
-    it.<br />
-    Visit <a href="https://github.com/georgekosmidis/Marv-with-Azure-OpenAI"
-      target="_blank">https://github.com/georgekosmidis/Marv-with-Azure-OpenAI</a> for the source code.
+    <strong>Marv is usually down</strong>, it is used only during presentations.
+      <br /><br />
+      <a
+      href="https://georgekosmidis.net" target="_blank">Contact</a> | <a href="https://github.com/georgekosmidis/Marv-with-Azure-OpenAI" target="_blank">Source Code</a> | <a href="https://www.microsoft.com/en-us/ai/responsible-ai" target="_blank">Responsible AI</a> 
   </footer>
 </body>
 
