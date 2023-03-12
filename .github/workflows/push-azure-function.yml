@@ -1,4 +1,4 @@
-name: Build and deploy .NET Core application to Function App marv
+name: Deploy Azure Function
 on:
   push:
     branches:
