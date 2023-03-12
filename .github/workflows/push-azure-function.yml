@@ -10,7 +10,7 @@ env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: AzureOpenAISample\published
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 6.0.x
-  WORKING_DIRECTORY: api
+  WORKING_DIRECTORY: api/AzureOpenAISample
 jobs:
   build:
     runs-on: windows-latest
