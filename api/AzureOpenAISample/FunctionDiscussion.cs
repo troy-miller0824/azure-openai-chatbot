@@ -1,8 +1,10 @@
-using AzureOpenAISample.Services;
+using AzureOpenAISample.Marv.Services;
+using AzureOpenAISample.Models;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using System.Net;
+using System.Text.Json;
 
 namespace AzureOpenAISample;
 
@@ -18,7 +20,7 @@ public class FunctionDiscussion
     }
 
     [Function($"{nameof(AskMarv)}/{{discussionId:guid}}")]
-    public async Task<HttpResponseData> AskMarv([HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestData req, Guid discussionId)
+    public async Task<MultiResponse> AskMarv([HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestData req, Guid discussionId)
     {
         _logger.LogInformation($"Method {nameof(AskMarv)} called successfully!");
 
@@ -27,21 +29,31 @@ public class FunctionDiscussion
         var response = req.CreateResponse(HttpStatusCode.Accepted);
         await response.WriteAsJsonAsync(result);
 
-        _logger.LogInformation($"Method {nameof(AskMarv)} done processing successfully!");
+        var history = JsonSerializer.Serialize(
+                                _discussionService.GetHistory(discussionId),
+                                new JsonSerializerOptions { WriteIndented = true });
 
-        return response;
+        return new MultiResponse()
+        {
+            // Write a single message.
+            BlobOutput = history,
+            HttpResponseData = response
+        };
+
     }
 
     [Function($"{nameof(History)}/{{discussionId:guid}}")]
-    public async Task<HttpResponseData> History([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req, Guid discussionId)
+    public async Task<HttpResponseData> History(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req,
+        [BlobInput("discussions/{discussionId}.json")] string discussion,
+        Guid discussionId)
     {
         _logger.LogInformation($"Method {nameof(History)} called successfully!");
 
-        var result = _discussionService.GetHistory(discussionId);
-        var response = req.CreateResponse(HttpStatusCode.OK);
-        await response.WriteAsJsonAsync(result);
+        var json = JsonSerializer.Deserialize<List<Dialog>>(discussion);
 
-        _logger.LogInformation($"Method {nameof(History)} done processing successfully!");
+        var response = req.CreateResponse(HttpStatusCode.OK);
+        await response.WriteAsJsonAsync(json);
 
         return response;
     }

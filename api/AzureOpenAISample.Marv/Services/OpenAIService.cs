@@ -1,11 +1,11 @@
-﻿using AzureOpenAISample.Models;
+﻿using AzureOpenAISample.Marv.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 
-namespace AzureOpenAISample.Implementations;
+namespace AzureOpenAISample.Marv.Implementations;
 public class OpenAIService : IOpenAIService
 {
     private readonly HttpClient _httpClient;

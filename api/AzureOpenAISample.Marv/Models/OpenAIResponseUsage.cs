@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace AzureOpenAISample.Models;
+namespace AzureOpenAISample.Marv.Models;
 public class OpenAIResponseUsage
 {
     [JsonPropertyName("completion_tokens")]

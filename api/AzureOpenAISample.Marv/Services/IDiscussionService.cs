@@ -1,9 +1,10 @@
-﻿using AzureOpenAISample.Models;
+﻿using AzureOpenAISample.Marv.Models;
 
-namespace AzureOpenAISample.Services;
+namespace AzureOpenAISample.Marv.Services;
 
 public interface IDiscussionService
 {
     Task<MarvDialog> GetResponseAsync(Guid discussionId, string question);
+
     MarvDialogs GetHistory(Guid discussionId);
 }

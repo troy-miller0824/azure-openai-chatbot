@@ -1,8 +1,8 @@
-using AzureOpenAISample.HostBuilderConfiguration;
+using AzureOpenAISample.Marv;
 using Microsoft.Extensions.Hosting;
 
 new HostBuilder()
     .ConfigureFunctionsWorkerDefaults()
-    .ConfigureApp()
+    .ConfigureMarv()
     .Build()
     .Run();

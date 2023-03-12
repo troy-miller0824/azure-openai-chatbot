@@ -1,13 +1,13 @@
-﻿using AzureOpenAISample.Implementations;
-using AzureOpenAISample.Models;
-using AzureOpenAISample.Services;
+﻿using AzureOpenAISample.Marv.Implementations;
+using AzureOpenAISample.Marv.Models;
+using AzureOpenAISample.Marv.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 
-namespace AzureOpenAISample.HostBuilderConfiguration;
+namespace AzureOpenAISample.Marv;
 
 /// <summary>
 /// Extensions for the <see cref="IConfigurationBuilder"/>.
@@ -35,7 +35,7 @@ public static class ConfigurationBuilderExtensions
         builder.AddEnvironmentVariables();
         if (env.Equals(DevelopmentEnvironment, StringComparison.OrdinalIgnoreCase))
         {
-            builder.AddUserSecrets(Assembly.GetEntryAssembly(), true);
+            builder.AddUserSecrets(Assembly.GetEntryAssembly()!, true);
         }
 
         return builder;
@@ -46,7 +46,7 @@ public static class ConfigurationBuilderExtensions
     /// </summary>
     /// <param name="hostBuilder">An instance of a <see cref="IHostBuilder"/>.</param>
     /// <returns> The same instance of the <see cref="IHostBuilder"/> for chaining.</returns>
-    public static IHostBuilder ConfigureApp(this IHostBuilder hostBuilder)
+    public static IHostBuilder ConfigureMarv(this IHostBuilder hostBuilder)
     {
 
         return hostBuilder
@@ -61,10 +61,10 @@ public static class ConfigurationBuilderExtensions
                 sc.AddHttpClient<IOpenAIService, OpenAIService>()
                   .ConfigureHttpClient((serviceProvider, client) =>
                   {
-                      var config = serviceProvider.GetService<IConfiguration>();
+                      var config = serviceProvider.GetService<IConfiguration>()!;
 
                       //Set Base Address
-                      var baseUri = new Uri(config.GetValue<string>(OpenAISettingNames.OpenAIBaseUrl));
+                      var baseUri = new Uri(config.GetValue<string>(OpenAISettingNames.OpenAIBaseUrl)!);
                       if (baseUri == default)
                       {
                           throw new Exception($"The {OpenAISettingNames.OpenAIBaseUrl} setting is empty or not a URL!");

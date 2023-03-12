@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureOpenAISample", "AzureOpenAISample\AzureOpenAISample.csproj", "{D0BB19BA-49FA-4ED3-B10B-6E8F7BCF3328}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureOpenAISample.Marv", "AzureOpenAISample.Marv\AzureOpenAISample.Marv.csproj", "{1FF6F6A6-62A4-491A-80B5-E7F21FDB5996}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D0BB19BA-49FA-4ED3-B10B-6E8F7BCF3328}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0BB19BA-49FA-4ED3-B10B-6E8F7BCF3328}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0BB19BA-49FA-4ED3-B10B-6E8F7BCF3328}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FF6F6A6-62A4-491A-80B5-E7F21FDB5996}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FF6F6A6-62A4-491A-80B5-E7F21FDB5996}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FF6F6A6-62A4-491A-80B5-E7F21FDB5996}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FF6F6A6-62A4-491A-80B5-E7F21FDB5996}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

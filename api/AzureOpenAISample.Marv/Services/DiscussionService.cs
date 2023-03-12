@@ -1,9 +1,9 @@
-﻿using AzureOpenAISample.Implementations;
-using AzureOpenAISample.Models;
+﻿using AzureOpenAISample.Marv.Implementations;
+using AzureOpenAISample.Marv.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace AzureOpenAISample.Services;
+namespace AzureOpenAISample.Marv.Services;
 
 public class DiscussionService : IDiscussionService
 {
@@ -40,7 +40,7 @@ public class DiscussionService : IDiscussionService
             .ToString();
 
         //ask Marv add the response, and return what he said
-        var marvModelName = _configuration.GetValue<string>(OpenAISettingNames.MarvModelName);
+        var marvModelName = _configuration.GetValue<string>(OpenAISettingNames.MarvModelName) ?? throw new NullReferenceException($"{OpenAISettingNames.MarvModelName} is null or empty!");
         var response = await _openAIService.GetResponseAsync(history, marvModelName);
         var botText = response.Choices!.First().Text!.Trim();
 
@@ -55,10 +55,12 @@ public class DiscussionService : IDiscussionService
 
     private async Task<string> DirkCorrectionAsync(Guid discussionId, string question)
     {
-        var dirkModelName = _configuration.GetValue<string>(OpenAISettingNames.MarvModelName);
+        var dirkModelName = _configuration.GetValue<string>(OpenAISettingNames.DirkModelName) ?? throw new NullReferenceException($"{OpenAISettingNames.DirkModelName} is null or empty!"); ;
+        
         //if user had double quotes it will confuse dirk since we are adding double quoutes: DirkTone: "question
         question = question.Replace('"', '\'');
         var response = await _openAIService.GetResponseAsync($"{DirkTone}\"{question}\"", dirkModelName);
+
         //get the response but remove double quotes, dirk answers the way it was asked
         var text = response.Choices!.First().Text!.Trim().Trim('"');
 

@@ -1,4 +1,4 @@
-﻿namespace AzureOpenAISample.Models;
+﻿namespace AzureOpenAISample.Marv.Models;
 internal class OpenAISettingNames
 {
     public const string OpenAIBaseUrl = nameof(OpenAIBaseUrl);

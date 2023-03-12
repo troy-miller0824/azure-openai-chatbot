@@ -1,6 +1,6 @@
-﻿using AzureOpenAISample.Models;
+﻿using AzureOpenAISample.Marv.Models;
 
-namespace AzureOpenAISample.Implementations;
+namespace AzureOpenAISample.Marv.Implementations;
 
 public interface IOpenAIService
 {

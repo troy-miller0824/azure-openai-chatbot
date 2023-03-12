@@ -1,4 +1,4 @@
-﻿namespace AzureOpenAISample.Models;
+﻿namespace AzureOpenAISample.Marv.Models;
 
 public enum DiscussionParticipant { Human, Marv };
 public class MarvDialog
