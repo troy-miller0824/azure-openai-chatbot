@@ -211,6 +211,10 @@
       font-size: x-small;
       padding-right: 3px;
     }
+    .footer-note{
+      font-weight: bold;
+      color: darkred;
+    }
   </style>
 
   <script>
@@ -219,7 +223,7 @@
     const PERSON_IMG = "/you.png";
     const BOT_NAME = "Marv";
     const PERSON_NAME = "You";
-    const MARV_BASEURL = "http://localhost:7066/api/";
+    const MARV_BASEURL = "https://marv.georgekosmidis.net/api/";
 
     window.addEventListener('load', function () {
       var discussionId = uuidv4();
@@ -344,7 +348,8 @@
   <footer style="display: block; text-align: center; font-size: small; padding-bottom: 1pc;">
     A .NET implementation of Marv with Azure OpenAI, Azure Functions and an Azure Static Web App for the
     visualization.<br />
-    <strong>Marv is usually down</strong>, it is used only during presentations.
+    <strong>Marv is usually down</strong>, it is used only during presentations.<br />
+    <span class="footer-note">Marv is anonymously storing your discussions for later improvements</span>
       <br /><br />
       <a
       href="https://georgekosmidis.net" target="_blank">Contact</a> | <a href="https://github.com/georgekosmidis/Marv-with-Azure-OpenAI" target="_blank">Source Code</a> | <a href="https://www.microsoft.com/en-us/ai/responsible-ai" target="_blank">Responsible AI</a> 
