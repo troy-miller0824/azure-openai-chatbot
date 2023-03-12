@@ -21,4 +21,4 @@ The following steps are the text preprocessing needed before a question reaches 
 You can try your luck at https://marv.georgekosmidis.net but Marv is usually down (its up only during my presentations).
 
 Here is a glimpse of what he is like:
-![Marv, the reluctant and sarcastic bot.](https://raw.githubusercontent.com/georgekosmidis/Marv-with-Azure-OpenAI/main/assets/discussion.gif)
+![Marv, the reluctant and sarcastic bot.](https://raw.githubusercontent.com/georgekosmidis/Marv-with-Azure-OpenAI/main/assets/discussion.png)
