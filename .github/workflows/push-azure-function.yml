@@ -42,5 +42,5 @@ jobs:
       uses: Azure/functions-action@v1
       with:
         app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-        publish-profile: ${{ secrets.marv_5AF4 }}
+        publish-profile: ${{ secrets.azure_function_publish_profile }}
         package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
