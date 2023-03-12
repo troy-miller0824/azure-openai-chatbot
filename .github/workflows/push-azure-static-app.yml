@@ -1,6 +1,7 @@
 name: Deploy Azure Static Web App
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
