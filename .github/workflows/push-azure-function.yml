@@ -3,6 +3,8 @@ on:
   push:
     branches:
     - main
+    paths:
+      - api/**
 env:
   AZURE_FUNCTIONAPP_NAME: marv
   AZURE_FUNCTIONAPP_PACKAGE_PATH: AzureOpenAISample\published
