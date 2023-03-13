@@ -6,5 +6,5 @@ public interface IDiscussionService
 {
     Task<MarvDialog> GetResponseAsync(Guid discussionId, string question);
 
-    MarvDialogs GetHistory(Guid discussionId);
+    List<MarvDialog> GetHistory(Guid discussionId);
 }

@@ -28,8 +28,7 @@ public class OpenAIService : IOpenAIService
         }
         catch (Exception ex)
         {
-            _logger.LogCritical(ex, "Call returned a non-successful Status Code.");
-            throw;
+            _logger.LogCritical(ex, $"Call returned a non-successful Status Code ({response.StatusCode}) with reason '{response.ReasonPhrase}'.");
         }
 
         var data = await response.Content.ReadFromJsonAsync<OpenAIResponse>();
@@ -44,7 +43,6 @@ public class OpenAIService : IOpenAIService
         {
             var ex = new Exception($"No {nameof(data.Choices)} returned.");
             _logger.LogCritical(ex, ex.Message);
-            throw ex;
         }
         return data;
     }
