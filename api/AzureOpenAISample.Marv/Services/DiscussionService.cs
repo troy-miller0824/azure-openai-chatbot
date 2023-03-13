@@ -32,6 +32,7 @@ public class DiscussionService : IDiscussionService
 
         //have dirk correct the question and then add both version to OpenAIDialogs collection
         var dirkQuestion = await DirkCorrectionAsync(discussionId, question);
+
         OpenAIDialogs.Add(discussionId, DiscussionParticipant.Human, question, dirkQuestion, DateTime.Now);
 
         //Get the latest history for this discussionid 
@@ -42,6 +43,7 @@ public class DiscussionService : IDiscussionService
         //ask Marv add the response, and return what he said
         var marvModelName = _configuration.GetValue<string>(OpenAISettingNames.MarvModelName) ?? throw new NullReferenceException($"{OpenAISettingNames.MarvModelName} is null or empty!");
         var response = await _openAIService.GetResponseAsync(history, marvModelName);
+        //todo: content filtering
         var botText = response.Choices!.First().Text!.Trim();
 
         OpenAIDialogs.Add(discussionId, DiscussionParticipant.Marv, string.Empty, botText, DateTime.Now);
@@ -56,10 +58,15 @@ public class DiscussionService : IDiscussionService
     private async Task<string> DirkCorrectionAsync(Guid discussionId, string question)
     {
         var dirkModelName = _configuration.GetValue<string>(OpenAISettingNames.DirkModelName) ?? throw new NullReferenceException($"{OpenAISettingNames.DirkModelName} is null or empty!"); ;
-        
+
         //if user had double quotes it will confuse dirk since we are adding double quoutes: DirkTone: "question
         question = question.Replace('"', '\'');
         var response = await _openAIService.GetResponseAsync($"{DirkTone}\"{question}\"", dirkModelName);
+        //todo: content filtering
+        //if (response.Choices!.First().FinishReason != "stop")
+        //{
+        //    return ????;
+        //}
 
         //get the response but remove double quotes, dirk answers the way it was asked
         var text = response.Choices!.First().Text!.Trim().Trim('"');

@@ -44,7 +44,7 @@ public class MarvDialogs : List<MarvDialog>
     {
         //Concat the text for Marv with the format:
         // MarvTone \n\n Human:... \n Marv:... \n Human:...
-        var conversation = string.Join('\n', this.Select(x => $"{x.Participant}: {x.BotText!.Trim()}"));//{x.Participant.ToString()}: 
+        var conversation = string.Join('\n', this.Select(x => $"{x.Participant}: {(string.IsNullOrWhiteSpace(x.BotText) ? x.HumanText!.Trim() : x.BotText!.Trim())}"));//{x.Participant.ToString()}: 
 
         return $"{_tone}\n\n{conversation}";
     }
