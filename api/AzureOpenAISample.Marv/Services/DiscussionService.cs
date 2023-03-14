@@ -11,8 +11,8 @@ public class DiscussionService : IDiscussionService
     private readonly IOpenAIService _openAIService;
     private readonly IConfiguration _configuration;
 
-    private readonly string MarvTone = "You are Marv, a chatbot that reluctantly answers questions with sarcastic responses!";
-    private readonly string DirkTone = "End the sentence with the appropriate end of sentence punctuation mark:";
+    private readonly string MarvTemplate = "Marv is a chatbot that reluctantly answers questions with sarcastic responses:\n\n{0}\nMarv:";
+    private readonly string DirkTemplate = "Correct the following sentences in standard EnglishL\n\nSentence: \"how,\"\nCorrect: \"How?\"\n\nSentence: \"I am george,\"\nCorrect: \"I am George.\"\n\nSentence:\"hi\"\nCorrect: \"Hi!\"\n\nSentence: \"{0}\"\nCorrect:";
 
     public List<MarvDialog> OpenAIDialogs { get; } = new List<MarvDialog>();
 
@@ -33,7 +33,7 @@ public class DiscussionService : IDiscussionService
         OpenAIDialogs.Add(discussionId, DiscussionParticipant.Human, question, dirkQuestion, DateTime.Now);
 
         //Get the history for this discussionid 
-        var history = OpenAIDialogs.Where(x => x.DiscussionId == discussionId).ToString(MarvTone);
+        var history = OpenAIDialogs.Where(x => x.DiscussionId == discussionId).ToString(MarvTemplate);
 
         //ask Marv add the response, and return what he said
         var marvModelName = _configuration.GetValue<string>(OpenAISettingNames.MarvModelName) ?? throw new NullReferenceException($"{OpenAISettingNames.MarvModelName} is null or empty!");
@@ -89,12 +89,18 @@ public class DiscussionService : IDiscussionService
     {
         var textReturn = string.Empty;
 
+        if (!_configuration.GetValue<bool>(OpenAISettingNames.UseDirk))
+        {
+            //remove comma and its destructive power!
+            return question.Trim().TrimEnd(',').Replace("\"", "\\u0022");
+        }
+
         var dirkModelName = _configuration.GetValue<string>(OpenAISettingNames.DirkModelName) ?? throw new NullReferenceException($"{OpenAISettingNames.DirkModelName} is null or empty!"); ;
 
         //using comma at the end is my nemesis because it is instructing the bot to continue the same phrase.
         //addiotionally, if user included double quotes it will confuse dirk since we are adding double quoutes.
         question = question.TrimEnd(',').Replace("\"", "\\u0022");
-        var response = await _openAIService.GetResponseAsync($"{DirkTone}\"{question}\"", dirkModelName);
+        var response = await _openAIService.GetResponseAsync(string.Format(DirkTemplate, question), dirkModelName);
 
         //get the response but remove double quotes, dirk answers the way it was asked
         if (response.Choices != null && response.Choices.Any())
@@ -107,7 +113,7 @@ public class DiscussionService : IDiscussionService
             }
             else
             {
-                textReturn = choice.Text!.Trim().Trim('"').Trim();
+                textReturn = choice.Text!.Trim().Trim('"').Trim().ToLower();
                 _logger.LogInformation($"Dirk corrected question '{question}' for discussion '{discussionId}' : {textReturn}!");
             }
         }

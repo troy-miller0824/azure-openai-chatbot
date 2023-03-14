@@ -13,13 +13,13 @@ public class MarvDialog
 
 public static class OpenAiDialogsExtenstions
 {
-    public static string ToString(this IEnumerable<MarvDialog> marvDialogs, string tone)
+    public static string ToString(this IEnumerable<MarvDialog> marvDialogs, string template)
     {
         //Concat the text for Marv with the format:
         // MarvTone \n\n Human:... \n Marv:... \n Human:...
-        var conversation = string.Join('\n', marvDialogs.Select(x => $"{x.Participant}: {(string.IsNullOrWhiteSpace(x.BotText) ? x.HumanText!.Trim() : x.BotText!.Trim())}"));//{x.Participant.ToString()}: 
+        var conversation = string.Join('\n', marvDialogs.Select(x => $"{x.Participant}: {(string.IsNullOrWhiteSpace(x.BotText) ? x.HumanText!.Trim() : x.BotText!.Trim())}"));
 
-        return $"{tone}\n\n{conversation}";
+        return string.Format(template, conversation);
     }
 
     public static void Add(this List<MarvDialog> marvDialogs, Guid discussionId, DiscussionParticipant participant, string humanText, string botText, DateTime timestamp)
