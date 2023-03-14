@@ -219,17 +219,36 @@
 
   <script>
 
+    // Utils
+    function get(selector, root = document) {
+      return root.querySelector(selector);
+    }
+
+    function formatDate(date) {
+      const h = "0" + date.getHours();
+      const m = "0" + date.getMinutes();
+
+      return `${h.slice(-2)}:${m.slice(-2)}`;
+    }
+
+    function uuidv4() {
+      return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+      );
+    }
+
     const BOT_IMG = "/marv.png";
     const PERSON_IMG = "/you.png";
     const BOT_NAME = "Marv";
     const PERSON_NAME = "You";
-    const MARV_BASEURL = "https://marv.azurewebsites.net/api/";
+    const MARV_BASEURL = "http://localhost:7066/api/";
+    const DISCUSSION_ID = uuidv4();
 
     window.addEventListener('load', function () {
-      var discussionId = uuidv4();
+      
 
-      var MARV_ENDPOINT = MARV_BASEURL + "AskMarv/" + discussionId;
-      var MARV_HISTORY = MARV_BASEURL + "History/" + discussionId;
+      var MARV_ENDPOINT = MARV_BASEURL + "AskMarv/" + DISCUSSION_ID;
+      var MARV_HISTORY = MARV_BASEURL + "History/" + DISCUSSION_ID;
      
       var msgerForm = get(".msger-inputarea");
       var msgerInput = get(".msger-input");
@@ -239,7 +258,7 @@
       var msgerHistory = get(".msger-history");
 
       msgerHistory.href = MARV_HISTORY;
-      msgerHistory.innerHTML = discussionId;
+      msgerHistory.innerHTML = DISCUSSION_ID;
 
       msgerForm.addEventListener("submit", event => {
         event.preventDefault();
@@ -286,10 +305,20 @@
             }
           }).then(async (response) => {
             var marvResponse = await response.json();
-            appendMessage(BOT_NAME, BOT_IMG, "left", marvResponse.BotText);
+            var botText = marvResponse.BotText.replace(/(?:\r\n|\r|\n)/g, '<br />');
+            appendMessage(BOT_NAME, BOT_IMG, "left", botText);
           }).catch(error => {
-            appendMessage(BOT_NAME, BOT_IMG, "left", "Marv is down :(");
-            appendMessage(BOT_NAME, BOT_IMG, "left", error);
+            appendMessage(BOT_NAME, BOT_IMG, "left", `
+            <strong><font color="firebrick">Marv is down :( </font></strong>
+                <br /><br /> 
+                If the error persists and you feel like it, you can open an <strong><a href=\"https://github.com/georgekosmidis/Marv-with-Azure-OpenAI/issues\" target=\"_blank\">issue</a></strong> 
+                for the discussion id <code>${DISCUSSION_ID}</code> with the red error following, or contact <strong><a href=\"https://georgekosmidis.net\" target=\"_blank\">me</a></strong> directly! 
+                <br /><br />
+                <font color="firebrick">${error}</font>
+                <br /><br />
+                You can also try again!
+            `);
+
           });
 
         }
@@ -299,24 +328,6 @@
         }
       }
     });
-
-    // Utils
-    function get(selector, root = document) {
-      return root.querySelector(selector);
-    }
-
-    function formatDate(date) {
-      const h = "0" + date.getHours();
-      const m = "0" + date.getMinutes();
-
-      return `${h.slice(-2)}:${m.slice(-2)}`;
-    }
-
-    function uuidv4() {
-      return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-      );
-    }
 
   </script>
 </head>

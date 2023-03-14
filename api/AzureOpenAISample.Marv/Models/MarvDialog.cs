@@ -17,7 +17,7 @@ public static class OpenAiDialogsExtenstions
     {
         //Concat the text for Marv with the format:
         // MarvTone \n\n Human:... \n Marv:... \n Human:...
-        var conversation = string.Join('\n', marvDialogs.Select(x => $"{x.Participant}: {(string.IsNullOrWhiteSpace(x.BotText) ? x.HumanText!.Trim() : x.BotText!.Trim())}"));
+        var conversation = string.Join('\n', marvDialogs.Select(x => $"{x.Participant}: {(string.IsNullOrWhiteSpace(x.BotText) ? x.HumanText!.Trim().Replace('\n',',') : x.BotText!.Trim().Replace('\n', ','))}"));
 
         return string.Format(template, conversation);
     }
