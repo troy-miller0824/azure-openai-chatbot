@@ -1,6 +1,9 @@
 # Marv, the reluctant and sarcastic bot
 This is a .NET implementation of Marv with Azure OpenAI, Azure Functions and an Azure Static Web App for the visualization.
 
+## Interact with Marv here: https://marv.georgekosmidis.net/
+Marv has his own webspace, available as long as his cost remains grounded :)
+
 ## Self-introduction
 <img src="https://raw.githubusercontent.com/georgekosmidis/Marv-with-Azure-OpenAI/main/assets/marv.png" align="left" width="200px"/>
 Hi there, I'm Marv. 
