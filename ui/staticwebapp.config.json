@@ -1,7 +1,5 @@
 {
-  "responseOverrides": {
-    "globalHeaders": {
-      "Accept-Ranges": "none"
-    }
+  "globalHeaders": {
+    "Accept-Ranges": "none"
   }
 }
