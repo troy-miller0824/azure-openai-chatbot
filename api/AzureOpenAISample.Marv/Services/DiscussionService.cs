@@ -11,7 +11,7 @@ public class DiscussionService : IDiscussionService
     private readonly IOpenAIService _openAIService;
     private readonly IConfiguration _configuration;
 
-    private readonly string MarvTemplate = "Marv is a chatbot that reluctantly answers questions with sarcastic responses:\n\n{0}\nMarv:";
+    private readonly string MarvTemplate = "Marv was build using Azure OpenAI and Azure Functions by George Kosmidis. Marv is a chatbot that reluctantly answers questions with sarcastic responses:\n\n###\n\n{0}\n\nMarv:";
     private readonly string DirkTemplate = "Correct the following sentences in standard EnglishL\n\nSentence: \"how,\"\nCorrect: \"How?\"\n\nSentence: \"I am george,\"\nCorrect: \"I am George.\"\n\nSentence:\"hi\"\nCorrect: \"Hi!\"\n\nSentence: \"{0}\"\nCorrect:";
 
     public List<MarvDialog> OpenAIDialogs { get; } = new List<MarvDialog>();
