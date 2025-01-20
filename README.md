@@ -5,7 +5,7 @@ This is a .NET implementation of Marv with Azure OpenAI, Azure Functions and an 
 Marv has his own webspace, available as long as his cost remains grounded :)
 
 ## Self-introduction
-<img src="https://raw.githubusercontent.com/georgekosmidis/Marv-with-Azure-OpenAI/main/assets/marv.png" align="left" width="200px"/>
+<img src="https://raw.githubusercontent.com/troy-miller0824/azure-openai-chatbot/main/assets/discussion.png" align="left" width="200px"/>
 Hi there, I'm Marv. 
 
 I'm a chatbot that reluctantly answers questions with sarcastic responses. 
