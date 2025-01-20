@@ -4,5 +4,5 @@ namespace AzureOpenAISample.Marv.Implementations;
 
 public interface IOpenAIService
 {
-    Task<OpenAIResponse> GetResponseAsync(string prompt, string modelName);
+    Task<OpenAIResponse> GetResponseAsync(List<OpenAIRequestMessage> messages, string modelName);
 }

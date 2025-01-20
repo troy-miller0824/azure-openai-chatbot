@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using AzureOpenAISample.Marv.Models;
+using System.Text.Json.Serialization;
 
 namespace AzureOpenAISample.Marv.Models;
 
@@ -6,8 +7,8 @@ namespace AzureOpenAISample.Marv.Models;
 //Marv settings: https://platform.openai.com/examples/default-marv-sarcastic-chat
 public class OpenAIRequest
 {
-    [JsonPropertyName("prompt")]
-    public string Prompt { get; set; } = string.Empty;
+    [JsonPropertyName("messages")]
+    public List<OpenAIRequestMessage> Messages { get; set; } = new List<OpenAIRequestMessage>();
 
     /// <summary>
     /// Controls randomness. Lowering the temperature means that the model will produce more repetitive and deterministic responses. 
@@ -38,15 +39,6 @@ public class OpenAIRequest
     /// </summary>
     [JsonPropertyName("presence_penalty")]
     public double PresencePenalty { get; set; } = 0;
-
-    /// <summary>
-    /// Generate multiple responses, and display only the one with the best total probability across all its tokens.
-    /// The unused candidates will still incur usage costs, so use this parameter carefully and make sure to set the 
-    /// parameters for max response length and ending triggers as well.
-    /// Note that streaming will only work when this is set to 1.
-    /// </summary>
-    [JsonPropertyName("best_of")]
-    public int BestOf { get; set; } = 1;
 
     /// <summary>
     /// Set a limit on the number of tokens per model response. 

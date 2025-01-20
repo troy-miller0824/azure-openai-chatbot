@@ -50,8 +50,11 @@ public static class ConfigurationBuilderExtensions
     {
 
         return hostBuilder
-            .ConfigureAppConfiguration(builder =>
+            .ConfigureAppConfiguration((hostingContext, builder) =>
             {
+                builder
+                    .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true) // Add local.settings.json
+                    .AddEnvironmentVariables(); // Optionally, add environment variables as a fallback
                 builder.ConfigureSettingDefaults();
             })
             .ConfigureServices(sc =>
