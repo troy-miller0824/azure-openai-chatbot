@@ -1,7 +1,6 @@
 # Marv, the reluctant and sarcastic bot
 This is a .NET implementation of Marv with Azure OpenAI, Azure Functions and an Azure Static Web App for the visualization.
 
-## Interact with Marv here: https://marv.georgekosmidis.net/
 Marv has his own webspace, available as long as his cost remains grounded :)
 
 ## Self-introduction
@@ -21,7 +20,6 @@ The following steps are the text preprocessing needed before a question reaches 
 1. The participant name is added before each discussion entry (e.g. `Human:... \n Marv:... \n Human:...`)
 
 ## Demo
-You can try your luck at https://marv.georgekosmidis.net but Marv is usually down (its up only during my presentations).
 
 Here is a glimpse of what he is like:
 ![Marv, the reluctant and sarcastic bot.](https://raw.githubusercontent.com/troy-miller0824/azure-openai-chatbot/main/assets/discussion.jpg)
